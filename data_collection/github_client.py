@@ -6,7 +6,6 @@ class GitHubClient:
         self.repo = repo
 
     def get_repo_info(self):
-        #GET /repos/:owner/:repo/
         # repository has to be public
         username = 'django'
         repository = 'django'
@@ -18,9 +17,7 @@ class GitHubClient:
         pass
 
     def get_collaborators(self):
-        #GET /repos/:owner/:repo/contributors
         r = requests.get('https://api.github.com/repos/{}/{}/contributors'.format(self.username, self.repository))
-
         if (r.ok):
             print(r.json())
             return r.json()
@@ -33,6 +30,4 @@ class GitHubClient:
         if (r.ok):
             print(r.json())
             return r.json()
-
-        #GET / repos /: owner /:repo / commits
         pass
