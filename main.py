@@ -5,20 +5,22 @@ username = 'django'
 repository = 'django'
 client = GitHubClient(username, repository)
 
+client.get_commits(1)
+
 
 # json.dumps()
-commit_list = []
+# commit_list = []
 
-recent_result = []
+# recent_result = []
 
-page = 1
-while True:
-    print(page)
-    recent_result = client.get_commits(page)
-    page = page + 1
-    if len(recent_result) == 0:
-        break
-    commit_list.extend(recent_result)
-
-
-print(commit_list)
+# page = 1
+# while True:
+#     print(page)
+#     recent_result = client.get_commits(page)
+#     page = page + 1
+#     if len(recent_result) == 0:
+#         break
+#     commit_list.extend(recent_result)
+#
+#
+# print(commit_list)
