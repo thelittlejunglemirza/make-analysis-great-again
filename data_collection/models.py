@@ -23,6 +23,10 @@ class GitHubCollaborator:
     def __init__(self, commit):
         print(commit['login'])
         self.login = commit['login']
+        self.list_files = []
+
+    def add_file(self, filename):
+        pass
 
 
 class GitHubRepoInfo:
