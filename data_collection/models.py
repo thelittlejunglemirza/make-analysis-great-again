@@ -1,5 +1,5 @@
 import json
-
+from typing import Set
 
 class GitHubCommit:
     def __init__(self, commit, client):
@@ -36,3 +36,10 @@ class GitHubRepoInfo:
 class RepositoryFile:
     pass
 
+
+class Component:
+
+    def __init__(self, name: str, children: Set['Component'], level: int):
+        self.name = name
+        self.children = children  # if type is Folder
+        self.level = level
