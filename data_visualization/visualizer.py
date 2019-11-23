@@ -11,6 +11,7 @@ class Visualization:
     def __init__(self):
         self.B = nx.Graph()
         self.__edges = []
+        self.__edge_widths = []
         self.__nodes_type_1 = []
         self.__nodes_type_2 = []
         self.G = None
@@ -21,7 +22,13 @@ class Visualization:
     # for what is passed to nodes array
     def insert_edge(self, edge):
         if isinstance(edge, tuple):
-            self.__edges.append(edge)
+            if edge in self.__edges:
+                # if edge already exists add to its weight
+                idx = self.__edges.index(edge)
+                self.__edge_widths[idx] += 1.0
+            else:
+                self.__edges.append(edge)
+                self.__edge_widths.append(1.0)
         else:
             raise TypeError('cannot insert edge: edge is not a tuple')
 
@@ -41,7 +48,7 @@ class Visualization:
         # add all the edges
         self.B.add_edges_from(self.__edges)
 
-    # re-arrange nodes to top and bottom
+    # re-arrange nodes to left and right
     # make it look nice and organized
     # and draw
     def draw(self):
@@ -52,32 +59,10 @@ class Visualization:
         #   edge_cmap  (Matplotlib colormap, optional (default=None))
         nx.draw_networkx(vis.B,
                          pos=nx.drawing.layout.bipartite_layout(self.B, self.__nodes_type_1),
-                         arrows=True,
                          with_labels=True,
-                         width=5.0,
+                         width=self.__edge_widths,
                          font_weight='bold')
 
-
-class DummyCommit:
-    def __init__(self, collaborator, module, change):
-        self.collaborator = collaborator
-        self.module = module
-        self.change = change
-
-
-class DummyCollaborator:
-    def __init__(self, login):
-        self.login = login
-
-
-class DummyModule:
-    def __init__(self, name):
-        self.name = name
-
-
-# G = nx.bipartite.gnmk_random_graph(3, 5, 10, seed=123)
-# top = nx.bipartite.sets(G)[0]
-# pos = nx.bipartite_layout(G, top)
 
 # PLAYING WITH GRAPH MODULE
 vis = Visualization()
@@ -89,6 +74,8 @@ try:
     for code in range(ord('a'), ord('e') + 1):
         vis.insert_contributor_node(chr(code))
         vis.insert_edge((i, chr(code)))
+        for j in range(i):
+            vis.insert_edge((i, chr(code)))
         i += 1
 except TypeError as e:
     print(e)
@@ -97,22 +84,4 @@ vis.update_graph()
 vis.draw()
 plt.show()
 
-# vis = Visualization()
-
-
-# commits = []
-# collaborators = []
-# modules = []
-# for i in range(5):
-#     collaborators.append(DummyCollaborator(("login" + str(i))))
-# for i in range(5):
-#     modules.append(DummyModule(("module" + str(i))))
-# for i in range(5):
-#     commits.append(DummyCommit(collaborators[i], modules[i], i))
-# vis = Visualization()
-# vis.insert_nodes(collaborators, 1)
-# vis.insert_nodes(modules, 0)
-# vis.insert_edges(commits)
-# nx.draw(vis.B, with_labels=True, font_weight='bold')
-# plt.show()
 # print('done')
