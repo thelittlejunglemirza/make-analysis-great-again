@@ -1,0 +1,12 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyc
+
+.idea/misc.xml
+.idea/modules.xml
+.idea/inspectionProfiles/*
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/.gitignore
+.idea/make-analysis-great-again.iml
