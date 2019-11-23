@@ -7,7 +7,7 @@ import requests
 from networkx.algorithms import bipartite
 
 
-class Visualization:
+class Bipartite:
     def __init__(self):
         self.B = nx.Graph()
         self.__edges = []
@@ -65,7 +65,7 @@ class Visualization:
 
 
 # PLAYING WITH GRAPH MODULE
-vis = Visualization()
+vis = Bipartite()
 for i in range(1, 6):
     vis.insert_module_node(i)
 
