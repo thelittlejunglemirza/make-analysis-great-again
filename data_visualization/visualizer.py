@@ -8,7 +8,7 @@ change_color_to_green_limit = 5.0
 
 class Bipartite:
     def __init__(self):
-        self.B = nx.OrderedGraph()
+        self.B = nx.Graph()
         self.__edges = []
         self.__edge_widths = []
         self.__edge_colors = []
