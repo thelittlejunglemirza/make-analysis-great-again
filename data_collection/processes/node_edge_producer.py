@@ -60,7 +60,10 @@ def get_all_nodes():
     return get_all_module_nodes() + get_all_contributor_nodes()
 
 
-def get_all_edges(author_to_file_paths, module_nodes, contributor_nodes):
+def get_all_edges():
+    author_to_file_paths = get_author_to_file_paths()
+    module_nodes = get_all_module_nodes()
+    contributor_nodes = get_all_contributor_nodes()
     # TODO: add num files changed in a module
     edges = []
     def num_files_changed_in_this_module(changed_file_paths, module_name):
@@ -80,11 +83,8 @@ def get_all_edges(author_to_file_paths, module_nodes, contributor_nodes):
 
 
 def get_data_for_vis():
-    atfp = get_author_to_file_paths()
-    module_nodes = get_all_module_nodes()
-    contributor_nodes = get_all_contributor_nodes()
     # Edges
-    all_edges = get_all_edges(atfp, module_nodes, contributor_nodes)
+    all_edges = get_all_edges()
 
     # Nodes
     all_nodes = get_all_nodes()
