@@ -2,9 +2,9 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 # CONSTANTS
-change_color_to_blue_limit = 3.0
+change_color_to_blue_limit = 2.0
 change_color_to_green_limit = 5.0
-
+change_color_to_red_limit = 7.0
 
 class Bipartite:
     def __init__(self):
@@ -26,9 +26,12 @@ class Bipartite:
             if edge in self.__edges:
                 # if edge already exists add to its weight
                 idx = self.__edges.index(edge)
-                self.__edge_widths[idx] += 1.0
+                if self.__edge_widths[idx] < 8:
+                    self.__edge_widths[idx] += 1.0
                 # change the color if weight too big
-                if self.__edge_widths[idx] >= change_color_to_green_limit:
+                if self.__edge_widths[idx] >= change_color_to_red_limit:
+                    self.__edge_colors[idx] = 'r'
+                elif self.__edge_widths[idx] >= change_color_to_green_limit:
                     self.__edge_colors[idx] = 'g'
                 elif self.__edge_widths[idx] >= change_color_to_blue_limit:
                     self.__edge_colors[idx] = 'b'
@@ -88,7 +91,6 @@ class Bipartite:
     def show(self):
         self.update_graph()
         self.draw()
-        plt.figure(20, figsize=(100, 100))
         plt.show()
 
 
