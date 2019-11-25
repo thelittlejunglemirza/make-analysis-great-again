@@ -79,16 +79,18 @@ def get_all_edges(author_to_file_paths, module_nodes, contributor_nodes):
     return edges
 
 
-atfp = get_author_to_file_paths()
-module_nodes = get_all_module_nodes()
-contributor_nodes = get_all_contributor_nodes()
+# TODO: Nader: Below you can find all nodes and edges needed for visualization
+def get_data_for_vis():
+    atfp = get_author_to_file_paths()
+    module_nodes = get_all_module_nodes()
+    contributor_nodes = get_all_contributor_nodes()
+    # Edges
+    all_edges = get_all_edges(atfp, module_nodes, contributor_nodes)
 
-### TODO: Nader: Below you can find all nodes and edges needed for visualization
+    # Nodes
+    all_nodes = get_all_nodes()
+    contributor_nodes = get_all_contributor_nodes()
+    module_nodes = get_all_module_nodes()
+    return module_nodes, contributor_nodes, all_edges
 
-# Edges
-all_edges = get_all_edges(atfp, module_nodes, contributor_nodes)
-
-# Nodes
-all_nodes = get_all_nodes()
-contributor_nodes = get_all_contributor_nodes()
-module_nodes = get_all_module_nodes()
+# print(contributor_nodes, module_nodes)

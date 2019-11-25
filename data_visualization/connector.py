@@ -1,7 +1,7 @@
 from data_visualization.visualizer import Bipartite
 
 
-def plot(contributorPerFileObject):
+def plot(module_nodes, contributor_nodes, edges):
     try:
         vis = Bipartite()
         for contributor, modules in contributorPerFileObject:
