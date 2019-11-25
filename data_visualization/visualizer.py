@@ -6,7 +6,26 @@ change_color_to_blue_limit = 2.0
 change_color_to_green_limit = 5.0
 change_color_to_red_limit = 7.0
 
+num_contributors = 521
+num_modules = 34
+
+coeff = num_contributors / num_modules
+
+width = 5000
+height = 5000
+
+
+contributor_node_size = 20
+contributor_node_margin = 200
+
+module_node_size = 500
+module_node_margin = ((contributor_node_size + contributor_node_margin) * coeff)  - module_node_size
+
+colors = ['r', 'b', 'g', 'y', 'black', 'pink']
+
+
 class Bipartite:
+    color_index = 0
     def __init__(self):
         self.B = nx.Graph()
         self.__edges = []
@@ -49,14 +68,15 @@ class Bipartite:
     # add type one node
     def insert_module_node(self, node):
         self.__nodes_type_1.append(node)
-        self.__node_size_type_1.append(200)
+        self.__node_size_type_1.append(module_node_size)
         self.__node_color_type_1.append('r')
 
     # add type two node
     def insert_contributor_node(self, node):
         self.__nodes_type_2.append(node)
-        self.__node_size_type_2.append(50)
-        self.__node_color_type_2.append('y')
+        self.__node_size_type_2.append(contributor_node_size)
+        self.__node_color_type_2.append(colors[Bipartite.color_index % len(colors) ])
+        Bipartite.color_index += 1
 
     # generate the positions for nodes
     # making sure the order is consistent
@@ -70,18 +90,16 @@ class Bipartite:
         # Update position for node from each group
         new_arr = []
         margin_left = 0
+        # module
         for index, node in enumerate(left):
-            # self.__positions.update((node, (1, index + margin_left)))
-            # self.__positions.update((node, (1, index + margin_left)))
             new_arr.append((node, (1, index + margin_left)))
-            margin_left += 200000
+            margin_left += module_node_margin
 
         margin_right = 0
+        # contributor
         for index, node in enumerate(right):
-            # self.__positions.update((node, (2, index + margin_right)))
-            # self.__positions.update((node, (1, index + margin_right)))
             new_arr.append((node, (2, index + margin_right)))
-            margin_right += 10000
+            margin_right += contributor_node_margin
         self.__positions.update(new_arr)
 
     # actually load the data to graph
@@ -89,7 +107,6 @@ class Bipartite:
         # add all the nodes
         self.B.add_nodes_from(self.__nodes_type_1, bipartite=0)
         self.B.add_nodes_from(self.__nodes_type_2, bipartite=1)
-        print(self.B.nodes)
         # add all the edges
         self.B.add_edges_from(self.__edges)
         self.__update_positions()
@@ -110,26 +127,18 @@ class Bipartite:
                          node_color=self.__node_color_type_1+self.__node_color_type_2,
                          width=self.__edge_widths,
                          edge_color=self.__edge_colors,
-                         font_size=8)
+                         font_size=6)
 
     def show(self):
+        plt.figure(figsize=(width / 100, height / 100))
         self.update_graph()
         self.draw()
+        nodes = self.__nodes_type_1 + self.__nodes_type_2
+        for (i, key) in enumerate(self.__positions.keys()):
+            x, y = self.__positions[key]
+            if i >= len(self.__nodes_type_1):
+                x = x + 0.05
+            else:
+                x = x - 0.05
+            plt.text(x, y , s=nodes[i], bbox=dict(facecolor='black', alpha=0), horizontalalignment='center')
         plt.show()
-
-
-# # PLAYING WITH GRAPH MODULE
-# vis = Bipartite()
-# for i in range(1, 6):
-#     vis.insert_module_node(i)
-#
-# try:
-#     i = 1
-#     for code in range(ord('a'), ord('e') + 1):
-#         vis.insert_contributor_node(chr(code))
-#         vis.insert_edge((i, chr(code)))
-#         for j in range(i-1):
-#             vis.insert_edge((i, chr(code)))
-#         i += 1
-# except TypeError as e:
-#     print(e)
