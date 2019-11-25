@@ -37,6 +37,8 @@ class Bipartite:
         self.__node_size_type_2 = []
         self.__node_color_type_1 = []
         self.__node_color_type_2 = []
+        self.__node_labels_type_1 = []
+        self.__node_labels_type_2 = []
         self.__positions = {}
 
     # each edge should be of the from:
@@ -70,6 +72,7 @@ class Bipartite:
         self.__nodes_type_1.append(node)
         self.__node_size_type_1.append(module_node_size)
         self.__node_color_type_1.append('r')
+        self.__node_labels_type_1.append(12)
 
     # add type two node
     def insert_contributor_node(self, node):
@@ -77,6 +80,7 @@ class Bipartite:
         self.__node_size_type_2.append(contributor_node_size)
         self.__node_color_type_2.append(colors[Bipartite.color_index % len(colors) ])
         Bipartite.color_index += 1
+        self.__node_labels_type_1.append(6)
 
     # generate the positions for nodes
     # making sure the order is consistent
@@ -127,7 +131,7 @@ class Bipartite:
                          node_color=self.__node_color_type_1+self.__node_color_type_2,
                          width=self.__edge_widths,
                          edge_color=self.__edge_colors,
-                         font_size=6)
+                         font_size=self.__node_labels_type_1 + self.__node_labels_type_2)
 
     def show(self):
         plt.figure(figsize=(width / 100, height / 100))
