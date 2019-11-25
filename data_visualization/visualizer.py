@@ -72,7 +72,7 @@ class Bipartite:
         self.__nodes_type_1.append(node)
         self.__node_size_type_1.append(module_node_size)
         self.__node_color_type_1.append('r')
-        self.__node_labels_type_1.append(12)
+        self.__node_labels_type_1.append(20)
 
     # add type two node
     def insert_contributor_node(self, node):
@@ -80,7 +80,7 @@ class Bipartite:
         self.__node_size_type_2.append(contributor_node_size)
         self.__node_color_type_2.append(colors[Bipartite.color_index % len(colors) ])
         Bipartite.color_index += 1
-        self.__node_labels_type_1.append(6)
+        self.__node_labels_type_2.append(8)
 
     # generate the positions for nodes
     # making sure the order is consistent
@@ -127,22 +127,23 @@ class Bipartite:
         nx.draw_networkx(self.B,
                          pos=self.__positions,
                          with_labels=False,
-                         node_size=self.__node_size_type_1+self.__node_size_type_2,
-                         node_color=self.__node_color_type_1+self.__node_color_type_2,
+                         node_size=self.__node_size_type_1 + self.__node_size_type_2,
+                         node_color=self.__node_color_type_1 + self.__node_color_type_2,
                          width=self.__edge_widths,
-                         edge_color=self.__edge_colors,
-                         font_size=self.__node_labels_type_1 + self.__node_labels_type_2)
+                         edge_color=self.__edge_colors)
 
     def show(self):
         plt.figure(figsize=(width / 100, height / 100))
         self.update_graph()
         self.draw()
         nodes = self.__nodes_type_1 + self.__nodes_type_2
+        font_sizes = self.__node_labels_type_1 + self.__node_labels_type_2
         for (i, key) in enumerate(self.__positions.keys()):
             x, y = self.__positions[key]
             if i >= len(self.__nodes_type_1):
-                x = x + 0.05
+                x = x + 0.015
             else:
-                x = x - 0.05
-            plt.text(x, y , s=nodes[i], bbox=dict(facecolor='black', alpha=0), horizontalalignment='center')
+                x = x - 0.100
+            plt.text(x, y , s=nodes[i], horizontalalignment='center', verticalalignment='center',
+                     fontdict={'size': font_sizes[i]})
         plt.show()
