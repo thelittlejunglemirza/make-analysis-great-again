@@ -78,35 +78,32 @@ class Bipartite:
         #   node_color (default='r') , could be an array for each node
         #   width      (size of edges default=1.0) , could be an array for each node
         #   edge_cmap  (Matplotlib colormap, optional (default=None))
-        nx.draw_networkx(vis.B,
+        nx.draw_networkx(self.B,
                          pos=self.__positions,
                          with_labels=True,
                          width=self.__edge_widths,
                          edge_color=self.__edge_colors,
                          font_weight='bold')
 
-    def show (self):
-        vis.update_graph()
-        vis.draw()
+    def show(self):
+        self.update_graph()
+        self.draw()
+        plt.figure(20, figsize=(100, 100))
         plt.show()
 
-# PLAYING WITH GRAPH MODULE
-vis = Bipartite()
-for i in range(1, 6):
-    vis.insert_module_node(i)
 
-try:
-    i = 1
-    for code in range(ord('a'), ord('e') + 1):
-        vis.insert_contributor_node(chr(code))
-        vis.insert_edge((i, chr(code)))
-        for j in range(i-1):
-            vis.insert_edge((i, chr(code)))
-        i += 1
-except TypeError as e:
-    print(e)
-
-
-
-
-# print('done')
+# # PLAYING WITH GRAPH MODULE
+# vis = Bipartite()
+# for i in range(1, 6):
+#     vis.insert_module_node(i)
+#
+# try:
+#     i = 1
+#     for code in range(ord('a'), ord('e') + 1):
+#         vis.insert_contributor_node(chr(code))
+#         vis.insert_edge((i, chr(code)))
+#         for j in range(i-1):
+#             vis.insert_edge((i, chr(code)))
+#         i += 1
+# except TypeError as e:
+#     print(e)

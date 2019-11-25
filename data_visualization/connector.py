@@ -4,19 +4,19 @@ from data_visualization.visualizer import Bipartite
 def plot(module_nodes, contributor_nodes, edges):
     try:
         vis = Bipartite()
-        for contributor_node in contributor_nodes:
+        for contributor_node in contributor_nodes[:20]:
             vis.insert_contributor_node(contributor_node.name)
 
-        for module_node in module_nodes:
+        for module_node in module_nodes[:5]:
             vis.insert_module_node(module_node.name)
 
-        for edge in edges:
-            i = edge.weight
+        # for edge in edges:
+        #     i = edge.weight
+        #
+        #     while i > 0:
+        #         i = i-1
+        #         vis.insert_edge((edge.dst.name, chr(edge.src.name)))
 
-            while (i>0):
-                i=i-1
-                vis.insert_edge((edge.dst.name, chr(edge.src.name)))
-
+        vis.show()
     except TypeError as e:
-        print(e)
-    vis.show()
+        print('error: ' + str(e))
