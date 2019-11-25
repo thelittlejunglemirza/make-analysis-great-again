@@ -85,6 +85,10 @@ class Bipartite:
                          edge_color=self.__edge_colors,
                          font_weight='bold')
 
+    def show (self):
+        vis.update_graph()
+        vis.draw()
+        plt.show()
 
 # PLAYING WITH GRAPH MODULE
 vis = Bipartite()
@@ -103,8 +107,6 @@ except TypeError as e:
     print(e)
 
 
-vis.update_graph()
-vis.draw()
-plt.show()
+
 
 # print('done')
