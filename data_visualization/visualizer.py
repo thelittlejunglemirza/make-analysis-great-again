@@ -14,6 +14,10 @@ class Bipartite:
         self.__edge_colors = []
         self.__nodes_type_1 = []
         self.__nodes_type_2 = []
+        self.__node_size_type_1 = []
+        self.__node_size_type_2 = []
+        self.__node_color_type_1 = []
+        self.__node_color_type_2 = []
         self.__positions = {}
 
     # each edge should be of the from:
@@ -42,10 +46,14 @@ class Bipartite:
     # add type one node
     def insert_module_node(self, node):
         self.__nodes_type_1.append(node)
+        self.__node_size_type_1.append(200)
+        self.__node_color_type_1.append('r')
 
     # add type two node
     def insert_contributor_node(self, node):
         self.__nodes_type_2.append(node)
+        self.__node_size_type_2.append(50)
+        self.__node_color_type_2.append('y')
 
     # generate the positions for nodes
     # making sure the order is consistent
@@ -57,14 +65,28 @@ class Bipartite:
         # need to sort after right because of set deduction above
         left = sorted(left)
         # Update position for node from each group
-        self.__positions.update((node, (1, index)) for index, node in enumerate(left))
-        self.__positions.update((node, (2, index)) for index, node in enumerate(right))
+        new_arr = []
+        margin_left = 0
+        for index, node in enumerate(left):
+            # self.__positions.update((node, (1, index + margin_left)))
+            # self.__positions.update((node, (1, index + margin_left)))
+            new_arr.append((node, (1, index + margin_left)))
+            margin_left += 200000
+
+        margin_right = 0
+        for index, node in enumerate(right):
+            # self.__positions.update((node, (2, index + margin_right)))
+            # self.__positions.update((node, (1, index + margin_right)))
+            new_arr.append((node, (2, index + margin_right)))
+            margin_right += 10000
+        self.__positions.update(new_arr)
 
     # actually load the data to graph
     def update_graph(self):
         # add all the nodes
         self.B.add_nodes_from(self.__nodes_type_1, bipartite=0)
         self.B.add_nodes_from(self.__nodes_type_2, bipartite=1)
+        print(self.B.nodes)
         # add all the edges
         self.B.add_edges_from(self.__edges)
         self.__update_positions()
@@ -80,15 +102,16 @@ class Bipartite:
         #   edge_cmap  (Matplotlib colormap, optional (default=None))
         nx.draw_networkx(self.B,
                          pos=self.__positions,
-                         with_labels=True,
+                         with_labels=False,
+                         node_size=self.__node_size_type_1+self.__node_size_type_2,
+                         node_color=self.__node_color_type_1+self.__node_color_type_2,
                          width=self.__edge_widths,
                          edge_color=self.__edge_colors,
-                         font_weight='bold')
+                         font_size=8)
 
     def show(self):
         self.update_graph()
         self.draw()
-        plt.figure(20, figsize=(100, 100))
         plt.show()
 
 
