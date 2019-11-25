@@ -6,27 +6,20 @@ change_color_to_blue_limit = 2.0
 change_color_to_green_limit = 5.0
 change_color_to_red_limit = 7.0
 
-num_contributors = 521
-num_modules = 34
-
-coeff = num_contributors / num_modules
-
 width = 5000
 height = 5000
-
-
-contributor_node_size = 20
-contributor_node_margin = 200
-
-module_node_size = 500
-module_node_margin = ((contributor_node_size + contributor_node_margin) * coeff)  - module_node_size
-
 colors = ['r', 'b', 'g', 'y', 'black', 'pink']
-
 
 class Bipartite:
     color_index = 0
-    def __init__(self):
+    def __init__(self, num_contributors, num_modules):
+        self.num_contributors = num_contributors
+        self.num_modules = num_modules
+        coeff = num_contributors / num_modules
+        self.contributor_node_size = 20 + 20 * height / (10 * num_contributors)
+        self.contributor_node_margin = 200
+        self.module_node_size = 500 + 5 * height / (10 * num_modules)
+        self.module_node_margin = ((self.contributor_node_size + self.contributor_node_margin) * coeff) - self.module_node_size
         self.B = nx.Graph()
         self.__edges = []
         self.__edge_widths = []
@@ -70,17 +63,17 @@ class Bipartite:
     # add type one node
     def insert_module_node(self, node):
         self.__nodes_type_1.append(node)
-        self.__node_size_type_1.append(module_node_size)
+        self.__node_size_type_1.append(self.module_node_size)
         self.__node_color_type_1.append('r')
         self.__node_labels_type_1.append(20)
 
     # add type two node
     def insert_contributor_node(self, node):
         self.__nodes_type_2.append(node)
-        self.__node_size_type_2.append(contributor_node_size)
+        self.__node_size_type_2.append(self.contributor_node_size)
         self.__node_color_type_2.append(colors[Bipartite.color_index % len(colors) ])
         Bipartite.color_index += 1
-        self.__node_labels_type_2.append(8)
+        self.__node_labels_type_2.append(7.8 + (0.2 * (height / (self.num_contributors * 10))))
 
     # generate the positions for nodes
     # making sure the order is consistent
@@ -97,13 +90,13 @@ class Bipartite:
         # module
         for index, node in enumerate(left):
             new_arr.append((node, (1, index + margin_left)))
-            margin_left += module_node_margin
+            margin_left += self.module_node_margin
 
         margin_right = 0
         # contributor
         for index, node in enumerate(right):
             new_arr.append((node, (2, index + margin_right)))
-            margin_right += contributor_node_margin
+            margin_right += self.contributor_node_margin
         self.__positions.update(new_arr)
 
     # actually load the data to graph

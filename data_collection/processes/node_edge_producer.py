@@ -79,7 +79,6 @@ def get_all_edges(author_to_file_paths, module_nodes, contributor_nodes):
     return edges
 
 
-# TODO: Nader: Below you can find all nodes and edges needed for visualization
 def get_data_for_vis():
     atfp = get_author_to_file_paths()
     module_nodes = get_all_module_nodes()
