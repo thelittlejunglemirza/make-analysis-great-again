@@ -1,5 +1,6 @@
 import plotly.graph_objects as go
 
+
 def plot_with_slider(final_data):
     years = []
 
