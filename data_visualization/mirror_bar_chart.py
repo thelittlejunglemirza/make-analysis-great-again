@@ -36,6 +36,7 @@ def plot_with_slider(final_data):
     fig.data[1].visible = True
     for i in range(len(years)):
         step = dict(
+            label=years[i],
             method="restyle",
             args=["visible", [False] * len(fig.data)],
         )
