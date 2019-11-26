@@ -18,7 +18,12 @@ def main():
                 final_data = get_quarter_label_to_vis3_data(module_name)
                 plot_with_slider(final_data)
             else:
-                print("incorrect arguments")
+                print("incorrect arguments: "
+                      "to run..."
+                      "Bipartite Graph:   main.py bipartite"
+                      "                   main.py bipartite [module_name]"
+                      "Boxplot Graph:     main.py boxplot"
+                      "MirrorChart Graph: main.py mirrochart [module_name")
         else:
             if sys.argv[1] == "bipartite":
                 if len(sys.argv) == 2:
@@ -26,10 +31,20 @@ def main():
             elif sys.argv[1] == "boxplot":
                 plot_boxplot()
             else:
-                print("incorrect arguments")
+                print("incorrect arguments: "
+                      "to run..."
+                      "Bipartite Graph:   main.py bipartite"
+                      "                   main.py bipartite [module_name]"
+                      "Boxplot Graph:     main.py boxplot"
+                      "MirrorChart Graph: main.py mirrochart [module_name")
     else:
-        print("incorrect arguments: "
-              "to run...")
+        print("incorrect arguments: \n"
+              "to run...\n"
+              "Bipartite Graph:   main.py bipartite\n"
+              "                   main.py bipartite [module_name]\n"
+              "Boxplot Graph:     main.py boxplot\n"
+              "MirrorChart Graph: main.py mirrochart [module_name\n")
+
 
 if __name__ == "__main__":
     main()
