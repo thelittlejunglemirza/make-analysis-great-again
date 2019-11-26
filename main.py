@@ -106,88 +106,88 @@ final_data = {
     },
     '2018': {
         '1': {
-            'additions': 2376,
-            'deletions': 355
+            'additions': 100,
+            'deletions': 35
         },
         '2': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '2': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '3': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '4': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '5': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '6': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '7': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '8': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '9': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '10': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '11': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '12': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '13': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '14': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '15': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '16': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '17': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '18': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '19': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         },
         '20': {
-            'additions': 3444,
-            'deletions': 244,
+            'additions': 344,
+            'deletions': 24,
         }
     }
 }
@@ -270,13 +270,18 @@ def plot_with_slider():
 
     # Create and add slider
     steps = []
+    print(fig)
     for i in range(len(years)):
         step = dict(
             method="restyle",
-            args=["visible", [False] * len(fig.data)],
+            args=["visible", [False] * len(years) * 2],
         )
-        step["args"][1][i] = True  # Toggle i'th trace to "visible"
+
+        j = i*2
+        for k in range(j, j+2):
+            step["args"][1][k] = True
         steps.append(step)
+    print(steps)
 
     sliders = [dict(
         active=10,
