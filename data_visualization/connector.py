@@ -12,7 +12,7 @@ def plot_bipartite_module_to_contributor_graph(module_nodes, contributor_nodes, 
 
         for edge in edges:
             i = edge.weight
-            i= i/2 + 0.1
+            i = i/2 + 0.1
             while i > 0:
                 i = i-1
                 vis.insert_edge((edge.dst.name, edge.src.name))
