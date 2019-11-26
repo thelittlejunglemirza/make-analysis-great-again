@@ -25,6 +25,16 @@ final_data = {
             'additions': 3444,
             'deletions': 244,
         }
+    },
+    '2018': {
+        'hramezani': {
+            'additions': 2000,
+            'deletions': 255
+        },
+        'someoneelse': {
+            'additions': 3200,
+            'deletions': 255,
+        }
     }
 }
 
@@ -51,7 +61,28 @@ for key in final_data:
                          orientation='h',
                          name='deletions'))
 
-    fig.show()
+print(fig.data)
+# Create and add slider
+steps = []
+for i in range(len(years)):
+    step = dict(
+        method="restyle",
+        args=["visible", [False] * len(fig.data)],
+    )
+    step["args"][1][i] = True  # Toggle i'th trace to "visible"
+    steps.append(step)
+
+sliders = [dict(
+    active=10,
+    currentvalue={"prefix": "Date: "},
+    pad={"t": 50},
+    steps=steps
+)]
+
+fig.update_layout(
+    sliders=sliders
+)
+fig.show()
 
 # final_data = {
 #     '2017': {
