@@ -16,7 +16,8 @@ def get_author_to_commits_map():
             for file in o['files']:
                 temp_obj['files'].append({
                     'filepath': file['filename'],
-                    'changes': file['changes']
+                    'additions': file['additions'],
+                    'deletions': file['deletions'],
                 })
             if login in author_to_commit:
                 author_to_commit[login].append(temp_obj)
